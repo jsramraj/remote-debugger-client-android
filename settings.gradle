@@ -1,0 +1,2 @@
+include ':app', ':remotedebugger'
+rootProject.name='RemoteDebugging'
