@@ -43,7 +43,6 @@ public class FileUploader {
                     callback.onSuccess(response.body().string());
                 } catch (IOException e) {
                     e.printStackTrace();
-                    callback.onSuccess(response.body().toString());
                 }
             }
 

@@ -46,10 +46,10 @@ public class RemoteDebugger implements ServiceCallback {
                 .on(Socket.EVENT_CONNECT_TIMEOUT, args -> {
                     Log.d("RD", "Timeout");
                 })
-        .on("command", args -> {
-            Log.d("RD", "Command received");
-            handleCommand(args[0].toString());
-        });
+                .on("command", args -> {
+                    Log.d("RD", "Command received");
+                    handleCommand(args[0].toString());
+                });
     }
 
     private void handleCommand(String commandArgs) {
@@ -71,7 +71,11 @@ public class RemoteDebugger implements ServiceCallback {
                             SimpleFile simpleFile = new SimpleFile();
                             simpleFile.setName(files[i].getName());
                             simpleFile.setPath(files[i].getPath());
-                            simpleFile.setSize(files[i].length());
+                            if(files[i].isDirectory()) {
+                                simpleFile.setSize(0);
+                            } else {
+                                simpleFile.setSize(files[i].length());
+                            }
                             simpleFile.setDirectory(files[i].isDirectory());
                             simpleFiles.add(simpleFile);
                         }
