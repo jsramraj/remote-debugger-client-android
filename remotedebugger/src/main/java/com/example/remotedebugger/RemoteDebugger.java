@@ -54,13 +54,13 @@ public class RemoteDebugger implements ServiceCallback {
 
     private void handleCommand(String commandArgs) {
         Command command = new Gson().fromJson(commandArgs, Command.class);
+        File file = new File(command.getDestinationPath());
+        Log.d("RD", command.getType() + " files at " + file);
         switch (command.getType()) {
             case VIEW:
-                Log.d("RD", "View files at " + command.getDestinationPath());
 
-                File directory = new File(command.getDestinationPath());
-                if (directory.isDirectory()) {
-                    File[] files = directory.listFiles();
+                if (file.isDirectory()) {
+                    File[] files = file.listFiles();
                     if (files != null) {
                         List<SimpleFile> simpleFiles = new ArrayList<>();
                         Log.d("RD", "Size: " + files.length);
@@ -82,9 +82,12 @@ public class RemoteDebugger implements ServiceCallback {
                         socket.emit("view", new Gson().toJson(simpleFiles));
                     }
                 } else {
-                    fileUploader.uploadFile(directory, this);
                 }
 
+                break;
+            case DOWNLOAD:
+                File directory = new File(command.getDestinationPath());
+                fileUploader.uploadFile(directory, this);
                 break;
             default:
                 Log.d("RD", "Not supported");

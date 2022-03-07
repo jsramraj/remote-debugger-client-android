@@ -33,6 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         File directory = new File(path);
         File[] files = directory.listFiles();
-        Log.d("Files", "Size: "+ files.length);
+//        Log.d("Files", "Size: "+ files.length);
     }
 }

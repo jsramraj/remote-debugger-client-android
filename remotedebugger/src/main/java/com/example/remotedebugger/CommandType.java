@@ -4,5 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public enum CommandType {
     @SerializedName("view")
-    VIEW
+    VIEW,
+    @SerializedName("download")
+    DOWNLOAD
 }
